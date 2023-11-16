@@ -1,0 +1,64 @@
+### Run our server
+From our computer or from the container, we can initiate the server with the **`initServer.sh`** script:
+```bash 
+./initServer.sh
+```
+
+**`initServer.sh`**:
+```bash
+#!/bin/bash
+#Intended to store the process ID (PID) of the running Java Server
+touch ../serverPID
+
+# The script checks if a process with the PID stored in app/serverPID is running.
+# If it finds a process, it attempts to kill it and outputs a message indicating that the previous process has been removed.
+if kill $(cat ../app/serverPID) 2>/dev/null; then
+        echo "Removed previous process"
+# If it doesn't find a process, it uses pkill -f java to forcefully kill any Java processes.
+else
+        pkill -f java
+        echo "Previous process not found, cleaning all java processes"
+fi
+
+sleep 1
+
+# Compile the server
+javac ../app/src/*.java -d ../app/class
+
+# Launching the server
+java -classpath "../app/class/:sqlite-jdbc-3.43.2.1.jar:slf4j-api-1.7.36.jar" Server &
+
+# Save the server PID
+if [ $? -eq 0 ]; then
+        echo $! | cat > ../app/serverPID
+        echo "Server started succesfully!"
+else
+        echo "Could not start server"
+fi
+```
+
+*Note: If there is an error with Java, the **port** may be being used. Run the command `job` and kill the Java processes.*
+
+- - - 
+### Stop our server
+
+To stop our server we have to run the **`stopServer.sh`** script:
+```bash 
+./stopServer.sh
+```
+
+**`stopServer.sh`**:
+```bash
+#!/bin/bash
+kill $(cat ../serverPID)
+```
+
+Let's break down the components of this command:
+- `cat ../serverPID`: This command reads the contents of the serverPID file and prints them to the standard output. In this case, it outputs the process ID (PID) of the Java server.  
+
+- `kill $(...)`: The $(...) is command substitution in Bash. It takes the output of the enclosed command (in this case, cat serverPID) and uses it as an argument for the kill command.  
+- `kill`: This is the command used to send signals to processes. By default, kill sends the TERM signal, which asks the process to terminate gracefully.
+
+Putting it all together, `kill $(cat ../serverPID)` reads the process ID from the serverPID file and sends a termination signal to the process with that PID. This is a common way to gracefully stop a background process by signaling it to shut down.
+
+- - - 

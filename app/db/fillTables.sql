@@ -1,0 +1,1 @@
+insert INTO Dia (id_dia, nombre) VALUES(1, 'Lunes');
