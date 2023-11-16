@@ -1,11 +1,20 @@
 # Java Web Server
-Basic web server made with Java using the *`slf4k-api`* and *`sqlite-jdbc`* libraries. HTML preproccesing cannot be done with PHP due to low-level programming we are doing here, so I will be using my [Java Hypertext Preproccesor](https://github.com/anaselmo/JHTPP).
+Basic web server made with Java using the `slf4k-api` and `sqlite-jdbc` libraries. HTML preproccesing cannot be done with PHP due to low-level programming we are doing here, so I will be using my [Java Hypertext Preproccesor](https://github.com/anaselmo/JHTPP).
+
+# Table of Contents
+
+1. [Install Java in our machine](#install-java-in-our-machine)
+2. [Install Docker in our machine](#install-docker-in-our-machine)
+3. [Create and run our Docker container](#create-and-run-our-docker-container)
+    1. [Things we can do with our Docker container](#things-we-can-do-with-our-docker-container)
+4. [Run our server](#run-our-server)
+5. [Stop our server](#stop-our-server)
 
 ## How to get started
 
 ### Install Java in our machine
 
-If you don't have the *`OpenJDK`* package installed in your machine, you can run the commands:
+If you don't have the `OpenJDK` package installed in your machine, you can run the commands:
 ```bash
 sudo apt-get update
 sudo apt install default-jdk
@@ -18,7 +27,7 @@ java -version
 
 ### Install Docker in our machine
 
-If you don't have the *`Docker`* package installed in your machine, you can run the commands:
+If you don't have the `Docker` package installed in your machine, you can run the commands:
 ```bash
 sudo apt-get update
 sudo apt install docker.io
